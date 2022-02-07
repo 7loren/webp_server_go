@@ -5,7 +5,7 @@ ARG EXHAUST_PATH=/opt/exhaust
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 RUN apk update && apk add alpine-sdk aom-dev && mkdir /build
 COPY go.mod /build
-RUN cd /build && go mod download
+RUN go env -w GOPROXY=https://goproxy.cn,direct && cd /build && go mod download
 
 COPY . /build
 RUN cd /build && sed -i "s|.\/pics|${IMG_PATH}|g" config.json  \
