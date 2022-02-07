@@ -2,6 +2,7 @@ FROM golang:1.17.4-alpine as builder
 
 ARG IMG_PATH=/opt/pics
 ARG EXHAUST_PATH=/opt/exhaust
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 RUN apk update && apk add alpine-sdk aom-dev && mkdir /build
 COPY go.mod /build
 RUN cd /build && go mod download
